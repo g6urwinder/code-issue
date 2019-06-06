@@ -4,7 +4,13 @@ import (
 	"fmt"
 	"os"
 	"io"
+	"context"
+
+	"golang.org/x/oauth2"
+	"github.com/google/go-github/github"
 )
+
+const GITHUB_TOKEN = "da51b148868960a8146c17f21504a219f26fea2c"
 
 func main() {
 
@@ -14,6 +20,21 @@ func main() {
 	writeFile(path, "THIS IS FCUKKK")
 	readFile(path)
 	deleteFile(path)
+
+	ctx := context.Background();
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: GITHUB_TOKEN},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+
+	client := github.NewClient(tc)
+
+	repos, _, _ := client.Repositories.List(ctx, "", nil)
+	
+	for repoid := range repos {
+		repo := repos[repoid];	
+		fmt.Print("REPO ===> ", repo.Name ,  "\n");
+	}
 }
 
 /*
