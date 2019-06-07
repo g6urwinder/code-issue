@@ -10,30 +10,41 @@ import (
 	"github.com/google/go-github/github"
 )
 
-const GITHUB_TOKEN = "da51b148868960a8146c17f21504a219f26fea2c"
+const GITHUB_TOKEN = "f4cf2489da0f67b8e3dbefc4082a583321557340"
+var CONTEXT = context.Background()
+var CLIENT *github.Client;
 
 func main() {
-
-	path := "WhaT-THE-fuClk";
-
-	createFile(path)
-	writeFile(path, "THIS IS FCUKKK")
-	readFile(path)
-	deleteFile(path)
-
-	ctx := context.Background();
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: GITHUB_TOKEN},
-	)
-	tc := oauth2.NewClient(ctx, ts)
-
-	client := github.NewClient(tc)
-
-	repos, _, _ := client.Repositories.List(ctx, "", nil)
 	
+	initGitContext();
+
+	listRepos()
+}
+
+/*
+* this will initialize context of background to oauth
+* which will be used to create new client for github.
+*/
+func initGitContext() {
+	
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{ AccessToken: GITHUB_TOKEN },
+	)
+	tc := oauth2.NewClient(CONTEXT, ts);
+	CLIENT = github.NewClient(tc);
+}
+
+func listRepos() {
+	
+	repos, _, err := CLIENT.Repositories.List(CONTEXT, "", nil)
+	if err != nil {
+		fmt.Print("error => ", err);
+		return;
+	}
+
 	for repoid := range repos {
-		repo := repos[repoid];	
-		fmt.Print("REPO ===> ", repo.Name ,  "\n");
+		repo := repos[repoid];
+		fmt.Println("REPO ==>", repo.GetFullName(), "\n");
 	}
 }
 
