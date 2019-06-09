@@ -10,7 +10,7 @@ import (
 	"github.com/google/go-github/github"
 )
 
-const GITHUB_TOKEN = "f4cf2489da0f67b8e3dbefc4082a583321557340"
+const GITHUB_TOKEN = ""
 var CONTEXT = context.Background()
 var CLIENT *github.Client;
 
