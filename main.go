@@ -32,13 +32,12 @@ func InitGitContext() {
 }
 
 /*
-* this will list repositories on authenticated connection
+* this will list issues of repositories on authenticated connection
 * and will range over all full names
  */
-func ListRepos() {
+func ListIssues() {
 	issues, _, err :=
-		CLIENT.Issues.
-			ListByRepo(context.Background(),
+		CLIENT.Issues.ListByRepo(context.Background(),
 				"gurwinderiam",
 				"code-issue",
 				nil)
@@ -48,9 +47,9 @@ func ListRepos() {
 		return
 	}
 
-	for _, element := range issues {
+	for index, element := range issues {
 		title := element.GetTitle()
-		fmt.Println("issue ==>", title)
+		fmt.Println("issue ", index, "==>", title)
 	}
 }
 
