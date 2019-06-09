@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+
 	"io"
 	"context"
 
@@ -10,7 +11,6 @@ import (
 	"github.com/google/go-github/github"
 )
 
-const GITHUB_TOKEN = ""
 var CONTEXT = context.Background()
 var CLIENT *github.Client;
 
