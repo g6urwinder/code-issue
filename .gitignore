@@ -1,3 +1,4 @@
 vendor/
 ./Gopkg.lock
-src/config.go
+config.go
+
