@@ -15,9 +15,7 @@ var CONTEXT = context.Background()
 var CLIENT *github.Client;
 
 func main() {
-	
 	initGitContext();
-
 	listRepos()
 }
 
