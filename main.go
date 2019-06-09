@@ -31,17 +31,26 @@ func InitGitContext() {
 	CLIENT = github.NewClient(tc)
 }
 
+/*
+* this will list repositories on authenticated connection
+* and will range over all full names
+ */
 func ListRepos() {
+	issues, _, err :=
+		CLIENT.Issues.
+			ListByRepo(context.Background(),
+				"gurwinderiam",
+				"code-issue",
+				nil)
 
-	repos, _, err := CLIENT.Repositories.List(CONTEXT, "", nil)
 	if err != nil {
-		fmt.Print("error => ", err)
+		fmt.Print("error ==> ", err)
 		return
 	}
 
-	for repoid := range repos {
-		repo := repos[repoid]
-		fmt.Print("REPO ==>", repo.GetFullName(), "\n")
+	for _, element := range issues {
+		title := element.GetTitle()
+		fmt.Println("issue ==>", title)
 	}
 }
 
