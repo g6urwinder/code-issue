@@ -9,13 +9,15 @@ import (
 
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
+	"github.com/urfave/cli"
 )
 
 var CONTEXT = context.Background()
 var CLIENT *github.Client
 
-func main() {
+var app = cli.NewApp()
 
+func main() {
 }
 
 /*
